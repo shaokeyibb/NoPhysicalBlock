@@ -70,17 +70,16 @@ public final class NoPhysicalBlock extends JavaPlugin implements Listener, Comma
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length != 1) return false;
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("只有玩家可以执行此指令");
+            return true;
+        }
         if (!sender.hasPermission(permission)) {
             sender.sendMessage("您没有权限这么做");
             return true;
         }
 
         if ("create".equalsIgnoreCase(args[0])) {
-            if (!(sender instanceof Player)) {
-                sender.sendMessage("只有玩家可以执行此指令");
-                return true;
-            }
-
             final Player player = (Player) sender;
             if (!tempGround.containsKey(player.getUniqueId()) || (tempGround.get(player.getUniqueId()).from == null || tempGround.get(player.getUniqueId()).to == null)) {
                 sender.sendMessage("请先使用 " + tool.name() + " 圈点后再执行该指令");
@@ -99,11 +98,6 @@ public final class NoPhysicalBlock extends JavaPlugin implements Listener, Comma
             sender.sendMessage("地块添加成功");
             return true;
         } else if ("remove".equalsIgnoreCase(args[0])) {
-            if (!(sender instanceof Player)) {
-                sender.sendMessage("只有玩家可以执行此指令");
-                return true;
-            }
-
             final Player player = (Player) sender;
             Optional<Ground> optional = groundList.stream().filter(result -> isInGround(player.getLocation())).findAny();
             if (!optional.isPresent()) {
