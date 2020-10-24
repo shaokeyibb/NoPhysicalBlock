@@ -1,0 +1,4 @@
+# https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+tool: "WOODEN_PICKAXE"
+# Permission to use
+premission: "npb.use"

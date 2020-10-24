@@ -1,0 +1,9 @@
+name: NoPhysicalBlock
+version: @version@
+main: kim.mimecraft.kim.nophysicalblock.NoPhysicalBlock
+api-version: 1.16
+authors: [ Helan_XingChen ]
+commands:
+  npb:
+    description: NoPhysicalBlock Main Command
+    usage: "Usage: /<command> [create/remove]"
