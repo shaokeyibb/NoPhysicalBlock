@@ -1,4 +1,4 @@
-package kim.mimecraft.kim.nophysicalblock;
+package kim.minecraft.kim.nophysicalblock;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

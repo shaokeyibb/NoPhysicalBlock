@@ -2,7 +2,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 apply plugin: 'java'
 
-group = 'kim.mimecraft.kim'
+group = 'kim.minecraft.kim'
 version = '1.0-SNAPSHOT'
 
 sourceCompatibility = '1.8'
