@@ -128,7 +128,7 @@ public final class NoPhysicalBlock extends JavaPlugin implements Listener, Comma
         permission = config.getString("permission", "npb.use");
 
         try {
-            if (!data.exists()) data.createNewFile();
+            if (!data.exists()) saveResource("data.json", true);
             else new JsonParser().parse(new FileReader(data)).getAsJsonArray().forEach(element ->
             {
                 JsonObject from = element.getAsJsonObject().get("from").getAsJsonObject();
