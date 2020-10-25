@@ -93,7 +93,7 @@ public final class NoPhysicalBlock extends JavaPlugin implements Listener, Comma
             return true;
         } else if ("remove".equalsIgnoreCase(args[0])) {
             final Player player = (Player) sender;
-            Optional<Ground> optional = groundList.stream().filter(result -> isInGround(player.getLocation())).findAny();
+            Optional<Ground> optional = groundList.stream().filter(result -> player.getLocation().toVector().isInAABB(result.from.toVector(), result.to.toVector())).findFirst();
             if (!optional.isPresent()) {
                 sender.sendMessage("您所在的区域没有地块可被移除");
                 return true;
@@ -102,10 +102,12 @@ public final class NoPhysicalBlock extends JavaPlugin implements Listener, Comma
             groundList.remove(optional.get());
             sender.sendMessage("地块移除成功");
             return true;
+        } else if ("clear".equalsIgnoreCase(args[0])) {
+            groundList.clear();
+            return true;
         } else {
             return false;
         }
-
     }
 
     @Override
@@ -169,6 +171,12 @@ public final class NoPhysicalBlock extends JavaPlugin implements Listener, Comma
             global.add("to", to);
 
             array.add(global);
+
+            try {
+                data.delete();
+                data.createNewFile();
+            } catch (IOException ignored) {
+            }
 
             try (PrintWriter writer = new PrintWriter(new FileWriter(data, true))) {
                 writer.print(array.toString());
