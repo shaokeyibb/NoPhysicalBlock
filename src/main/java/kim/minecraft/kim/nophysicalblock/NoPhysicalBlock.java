@@ -20,14 +20,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.io.*;
+import java.util.*;
 
 public final class NoPhysicalBlock extends JavaPlugin implements Listener, CommandExecutor {
 
@@ -128,7 +122,7 @@ public final class NoPhysicalBlock extends JavaPlugin implements Listener, Comma
         permission = config.getString("permission", "npb.use");
 
         try {
-            if (!data.exists()) saveResource("data.json", true);
+            if (!data.exists()) saveResource("data.json", false);
             else new JsonParser().parse(new FileReader(data)).getAsJsonArray().forEach(element ->
             {
                 JsonObject from = element.getAsJsonObject().get("from").getAsJsonObject();
@@ -176,10 +170,9 @@ public final class NoPhysicalBlock extends JavaPlugin implements Listener, Comma
 
             array.add(global);
 
-            try {
-                new FileWriter(data).write(array.toString());
-            } catch (IOException e) {
-                e.printStackTrace();
+            try (PrintWriter writer = new PrintWriter(new FileWriter(data, true))) {
+                writer.print(array.toString());
+            } catch (IOException ignored) {
             }
         });
     }
