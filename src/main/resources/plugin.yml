@@ -1,6 +1,6 @@
 name: NoPhysicalBlock
 version: @version@
-main: kim.mimecraft.kim.nophysicalblock.NoPhysicalBlock
+main: kim.minecraft.kim.nophysicalblock.NoPhysicalBlock
 api-version: 1.16
 authors: [ Helan_XingChen ]
 commands:
